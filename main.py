@@ -10,37 +10,7 @@ def insertion_sort(arr):
     pass  # 구현 예정
 
 def merge_sort(arr, depth=0):
-    if len(arr) > 1:
-        mid = len(arr) // 2
-        left = arr[:mid]
-        right = arr[mid:]
-
-        merge_sort(left, depth + 1)
-        merge_sort(right, depth + 1)
-
-        i = j = k = 0
-        while i < len(left) and j < len(right):
-            if left[i] < right[j]:
-                arr[k] = left[i]
-                i += 1
-            else:
-                arr[k] = right[j]
-                j += 1
-            k += 1
-
-        while i < len(left):
-            arr[k] = left[i]
-            i += 1
-            k += 1
-
-        while j < len(right):
-            arr[k] = right[j]
-            j += 1
-            k += 1
-
-    if depth == 0:
-        print(arr)
-    
+    pass
 
 def quick_sort(arr):
     pass  # 구현 예정
