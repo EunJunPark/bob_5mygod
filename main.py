@@ -7,7 +7,18 @@ def selection_sort(arr):
     pass  # 구현 예정
 
 def insertion_sort(arr):
-    pass  # 구현 예정
+    start = time.time()
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i-1
+        while j >= 0 and arr[j] > key:
+            arr[j+1] = arr[j]
+            j -= 1
+        arr[j+1] = key
+    end = time.time()
+    print(arr)
+    print(f"Insertion Sort 소요시간 : {end - start:.6f} 초")
+    
 
 def merge_sort(arr, depth=0):
     if len(arr) > 1:
