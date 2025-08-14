@@ -9,17 +9,16 @@ def selection_sort(arr):
 def insertion_sort(arr):
     pass  # 구현 예정
 
-def merge_sort(arr):
+def merge_sort(arr, depth=0):
     if len(arr) > 1:
         mid = len(arr) // 2
         left = arr[:mid]
         right = arr[mid:]
 
-        merge_sort(left)
-        merge_sort(right)
+        merge_sort(left, depth + 1)
+        merge_sort(right, depth + 1)
 
         i = j = k = 0
-
         while i < len(left) and j < len(right):
             if left[i] < right[j]:
                 arr[k] = left[i]
@@ -39,13 +38,17 @@ def merge_sort(arr):
             j += 1
             k += 1
 
+    if depth == 0:
+        print(arr)
+    
+
 def quick_sort(arr):
     pass  # 구현 예정
 
 if __name__ == "__main__":
     # data.txt 읽기
     with open("data.txt", "r") as f:
-        data = list(map(int, f.read().split()))
+        data = list(map(int, f.read().replace(',', ' ').split()))
 
     algorithms = [
         ("Bubble Sort", bubble_sort),
