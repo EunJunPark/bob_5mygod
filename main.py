@@ -71,20 +71,18 @@ def heap_sort(arr):
         if right < n and arr[right] > arr[largest]:
             largest = right
 
-        if largest != i:
-            arr[i], arr[largest] = arr[largest], arr[i]
-            heapify(arr, n, largest)
+        while j < len(right):
+            arr[k] = right[j]
+            j += 1
+            k += 1
 
-    n = len(arr)
 
-    for i in range(n // 2 - 1, -1, -1):
-        heapify(arr, n, i)
+    if depth == 0:
+        print(arr)
+    
 
-    for i in range(n - 1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i]
-        heapify(arr, i, 0)
-
-    print(arr)
+def quick_sort(arr):
+    pass  # 구현 예정
 
 if __name__ == "__main__":
     with open("data.txt", "r") as f:
