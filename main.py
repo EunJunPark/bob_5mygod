@@ -1,25 +1,31 @@
 import time
 
 def bubble_sort(arr):
+    start = time.time()
     n = len(arr)
     for i in range(n - 1):
         for j in range(n - 1 - i):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    end = time.time()
+    print("\n==========BUBBLE SORT==========")
+    print(arr)
+    print(f"Bubble Sort 소요시간 : {end - start:.6f} 초")
 
 def selection_sort(arr):
-    """선택 정렬을 수행합니다. (리스트를 인자로 받습니다)"""
+    start = time.time()
     n = len(arr)
-    # 배열의 전체 요소를 순회 (마지막 요소는 자동으로 정렬됨)
     for i in range(n - 1):
-        # 정렬되지 않은 부분에서 가장 작은 값의 인덱스를 찾음
         min_idx = i
         for j in range(i + 1, n):
             if arr[j] < arr[min_idx]:
                 min_idx = j
-        # 찾은 가장 작은 값을 현재 위치(i)의 값과 교환
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
-    print(' '.join(map(str, arr)))
+    end = time.time()
+    print("\n==========SELECTION SORT==========")
+    print(arr)
+    print(f"Selection Sort 소요시간 : {end - start:.6f} 초")
+
 
 def insertion_sort(arr):
     start = time.time()
@@ -31,6 +37,7 @@ def insertion_sort(arr):
             j -= 1
         arr[j+1] = key
     end = time.time()
+    print("\n==========INSERTION SORT==========")
     print(arr)
     print(f"Insertion Sort 소요시간 : {end - start:.6f} 초")
     
@@ -65,9 +72,12 @@ def merge_sort(arr, depth=0):
             k += 1
 
     if depth == 0:
+        print("\n==========MERGE SORT==========")
         print(arr)
+        
 
 def quick_sort(arr):
+    start = time.time()
     def _quick_sort(a, low, high):
         if low < high:
             pivot_index = _partition(a, low, high)
@@ -85,11 +95,14 @@ def quick_sort(arr):
         return i
 
     _quick_sort(arr, 0, len(arr) - 1)
-
-    print("Quick Sort Output:", arr)
+    end = time.time()
+    print("\n==========QUICK SORT==========")
+    print(arr)
+    print(f"Quick Sort 소요시간 : {end - start:.6f} 초")
 
 
 def heap_sort(arr):
+    start = time.time()
     def heapify(arr, n, i):
         largest = i
         left = 2 * i + 1
@@ -100,37 +113,23 @@ def heap_sort(arr):
         if right < n and arr[right] > arr[largest]:
             largest = right
 
-        while j < len(right):
-            arr[k] = right[j]
-            j += 1
-            k += 1
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            heapify(arr, n, largest)
 
+    n = len(arr)
 
-    if depth == 0:
-        print(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+    end = time.time()
+    print("\n==========HEAP SORT==========")
+    print(arr)
+    print(f"Heap Sort 소요시간 : {end - start:.6f} 초")
     
-
-def quick_sort(arr):
-    def _quick_sort(a, low, high):
-        if low < high:
-            pivot_index = _partition(a, low, high)
-            _quick_sort(a, low, pivot_index - 1)
-            _quick_sort(a, pivot_index + 1, high)
-
-    def _partition(a, low, high):
-        pivot = a[high]
-        i = low
-        for j in range(low, high):
-            if a[j] <= pivot:
-                a[i], a[j] = a[j], a[i]
-                i += 1
-        a[i], a[high] = a[high], a[i]
-        return i
-
-    _quick_sort(arr, 0, len(arr) - 1)
-
-    print("Quick Sort Output:", arr)
-
 if __name__ == "__main__":
     with open("data.txt", "r") as f:
         data = list(map(int, f.read().replace(',', ' ').split()))
@@ -146,7 +145,10 @@ if __name__ == "__main__":
 
     for name, func in algorithms:
         arr_copy = data.copy()
-        start = time.time()
+        if name == "Merge Sort":
+            start = time.time()
+            func(arr_copy)
+            end = time.time()
+            print(f"Merge Sort 소요시간 : {end - start:.6f} 초")
+            continue
         func(arr_copy)
-        end = time.time()
-        print(f"{name}: {end - start:.6f} 초")
