@@ -38,6 +38,7 @@ def merge_sort(arr, depth=0):
             j += 1
             k += 1
 
+
     if depth == 0:
         print(arr)
     
