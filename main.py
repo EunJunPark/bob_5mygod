@@ -13,12 +13,31 @@ def merge_sort(arr):
     pass  # 구현 예정
 
 def quick_sort(arr):
-    pass  # 구현 예정
+    def _quick_sort(a, low, high):
+        if low < high:
+            pivot_index = _partition(a, low, high)
+            _quick_sort(a, low, pivot_index - 1)
+            _quick_sort(a, pivot_index + 1, high)
+
+    def _partition(a, low, high):
+        pivot = a[high]
+        i = low
+        for j in range(low, high):
+            if a[j] <= pivot:
+                a[i], a[j] = a[j], a[i]
+                i += 1
+        a[i], a[high] = a[high], a[i]
+        return i
+
+    _quick_sort(arr, 0, len(arr) - 1)
+
+    print("Quick Sort Output:", arr)
+
 
 if __name__ == "__main__":
-    # data.txt 읽기
     with open("data.txt", "r") as f:
-        data = list(map(int, f.read().split()))
+        raw = f.read().replace(",", " ")
+        data = list(map(int, raw.split()))
 
     algorithms = [
         ("Bubble Sort", bubble_sort),
