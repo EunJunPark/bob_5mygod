@@ -4,24 +4,43 @@ def bubble_sort(arr):
     pass  # 구현 예정
 
 def selection_sort(arr):
-    """선택 정렬을 수행합니다. (리스트를 인자로 받습니다)"""
-    n = len(arr)
-    # 배열의 전체 요소를 순회 (마지막 요소는 자동으로 정렬됨)
-    for i in range(n - 1):
-        # 정렬되지 않은 부분에서 가장 작은 값의 인덱스를 찾음
-        min_idx = i
-        for j in range(i + 1, n):
-            if arr[j] < arr[min_idx]:
-                min_idx = j
-        # 찾은 가장 작은 값을 현재 위치(i)의 값과 교환
-        arr[i], arr[min_idx] = arr[min_idx], arr[i]
-    print(' '.join(map(str, arr)))
-    
+    pass  # 구현 예정
+
 def insertion_sort(arr):
     pass  # 구현 예정
 
-def merge_sort(arr):
-    pass  # 구현 예정
+def merge_sort(arr, depth=0):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left = arr[:mid]
+        right = arr[mid:]
+
+        merge_sort(left, depth + 1)
+        merge_sort(right, depth + 1)
+
+        i = j = k = 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                arr[k] = left[i]
+                i += 1
+            else:
+                arr[k] = right[j]
+                j += 1
+            k += 1
+
+        while i < len(left):
+            arr[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            arr[k] = right[j]
+            j += 1
+            k += 1
+
+    if depth == 0:
+        print(arr)
+    
 
 def quick_sort(arr):
     pass  # 구현 예정
@@ -29,7 +48,7 @@ def quick_sort(arr):
 if __name__ == "__main__":
     # data.txt 읽기
     with open("data.txt", "r") as f:
-        data = list(map(int, f.read().replace(",", " ").split()))
+        data = list(map(int, f.read().replace(',', ' ').split()))
 
     algorithms = [
         ("Bubble Sort", bubble_sort),
